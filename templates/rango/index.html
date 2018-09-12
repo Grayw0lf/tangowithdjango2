@@ -1,0 +1,61 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    index
+{% endblock %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h1 class="display-3">Rango says...</h1>
+            {% if user.is_authenticated %}
+                <h1>howdy {{ user.username }} ({{ visits }} occasion(s))!</h1>
+            {% else %}
+                <h1>hey there partner!</h1>
+            {% endif %}
+        </h1>
+    </div>
+    <div class="row marketing">
+        <div class="col-lg-6">
+        {% if categories %}
+            <h4>Most Liked Categories</h4>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{% url 'rango:show_category' category.slug %}">
+                            {{ category.name }}
+                        </a>
+                        <span class="badge badge-pill badge-primary">
+                            {{ category.likes }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+        </div>
+        <div class="col-lg-6">
+        {% if pages %}
+            <h4>Most Viewed Pages</h4>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        <a href="{% url 'rango:goto' %}?page_id={{ page.id }}" target="_blank">
+                            {{ page.title }}
+                        </a>
+                        <span class="badge badge-pill badge-primary">
+                            {{ page.views }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no pages present.</strong>
+        {% endif %}
+        </div>
+    </div>
+    <div>
+        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
+    </div>
+{% endblock %}

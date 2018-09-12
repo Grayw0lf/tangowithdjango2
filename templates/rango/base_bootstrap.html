@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+{% load rango_template_tags %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+     shrink-to-fit=no">
+    <meta name="description" content="Tango with Django">
+    <meta name="author" content="Graywolf">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <title>
+        Rango - {% block title %}How to Tango with Django!{% endblock %}
+    </title>
+    <!-- Bootstrap core CSS -->
+    <link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css"
+          rel="stylesheet">
+    <style>
+        button.navbar-toggler {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right navbar-light" type="button"
+            data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon navbar-light"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'rango:index' %}">Rango</a>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'rango:index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'rango:about' %}">About</a>
+            </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'rango:add_category' %}">Add a New Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'rango:profile' user.username %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'rango:list_profiles' %}">List Profiles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_logout' %}?next=/rango/">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'registration_register' %}">Register Here</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">Type to find a category</li>
+                <form>
+                    <li class="nav-item">
+                        <input class="search-query form-control" type="text"
+                               name="suggestion" value="" id="suggestion" />
+                    </li>
+                </form>
+            </ul>
+            <hr />
+            <div id="cats">
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="{% static 'js/rango-ajax.js' %}"></script>
+<script src="{% static "js/rango-jquery.js" %}"></script>
+<script src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>

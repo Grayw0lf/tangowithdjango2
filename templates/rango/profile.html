@@ -1,0 +1,33 @@
+{% extends 'rango/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    {{ selecteduser.username }} Profile
+{% endblock %}
+
+{% block body_block %}
+	<div class="page-header jumbotron">
+		<h1>{{selecteduser.username}} Profile</h1>
+	</div>
+    {% if userprofile.picture %}
+        <img src="{{ MEDIA_URL }}{{userprofile.picture }}" width="300" height="300" alt="{{user.username}}" />
+    {% else %}
+        <img src="http://lorempixel.com/300/300/people/" width="300" height="300" alt="{{user.username}}"/>
+    {% endif %}
+	<br/><br/>
+	<div id="profile_data">
+		{% if selecteduser.username == user.username %}
+            <form method="post" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update" />
+            </form>
+            {% else %}
+            <p><strong>Email:</strong>{{selecteduser.email}}</p>
+            <p><strong>Website:</strong>
+                <a href="{{userprofile.website}}">{{userprofile.website}}</a>
+            </p>
+		{% endif %}
+	</div>
+{% endblock %}

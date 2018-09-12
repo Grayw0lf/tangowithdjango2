@@ -1,0 +1,19 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    About Rango
+{% endblock %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h1>About Rango</h1>
+    </div>
+    <div>
+        hey there partner! <br />
+        <strong>{{ boldmessage }}</strong><br />
+    </div>
+    <div>
+        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of Cat" />
+    </div>
+{% endblock %}

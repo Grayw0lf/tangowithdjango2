@@ -1,0 +1,22 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h1>Login to Rango</h1>
+    </div>
+    <form id="login_form" method="post" action="{% url 'rango:login' %}">
+        {% csrf_token %}
+        <label for="id_username">Username: </label>
+        <input id="id_username" type="text" name="username" value="" size="50" />
+        <br />
+        <label for="id_password">Password: </label>
+        <input id="id_password" type="password" name="password" value="" size="50" />
+        <br />
+        <input type="submit" value="submit" />
+    </form>
+{% endblock %}
