@@ -1,0 +1,5 @@
+Django==2.1
+django-registration-redux==2.4
+Pillow==5.2.0
+pytils==0.3
+pytz==2018.5
